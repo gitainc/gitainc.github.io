@@ -1,22 +1,3 @@
-<?php
-        $ip = $_SERVER['REMOTE_ADDR'];
-        if ($ip) {
-                $query = @unserialize(file_get_contents('http://ip-api.com/php/'. $ip));
-                if($query && $query['status'] == 'success') {
-                        $ip .= " : " . $query['org'];
-                }
-        }
-        $ip_p = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        if ($ip_p) {
-                $query = @unserialize(file_get_contents('http://ip-api.com/php/'. $ip_p));
-                if($query && $query['status'] == 'success') {
-                        $ip_p .= " : " . $query['org'];
-                }
-        }
-        $ip = date(DATE_RFC822) . " ". $ip . " " . $ip_p . "\n";
-        $file = 'org.log';
-        file_put_contents($file, $ip, FILE_APPEND | LOCK_EX);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
